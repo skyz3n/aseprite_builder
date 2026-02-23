@@ -40,7 +40,6 @@ jobs:
         key: cached_version
     - name: Should we start new build?
       id: should_build
-      if: steps.version_check.outputs.cache-hit != 'true'
       run: echo "::set-output name=should_build::true"
     - name: Create Release
       id: create_release
@@ -59,7 +58,6 @@ jobs:
   build-aseprite:
     name: Build Aseprite
     needs: check-version
-    if: ${{ needs.check-version.outputs.should_build }}
     runs-on: ${{ matrix.os }}
     strategy:
        matrix:
